@@ -1,5 +1,6 @@
 package com.mashup.molinkfirst.folder;
 
+import com.mashup.molinkfirst.exception.BadRequestException;
 import com.mashup.molinkfirst.exception.NotFoundException;
 import com.mashup.molinkfirst.folder.dto.ReqCategoryFolder;
 import com.mashup.molinkfirst.folder.dto.ReqCreateFolder;
@@ -93,22 +94,28 @@ public class FolderService {
 
   /* 폴더 수정 */
   public void updateFolder(User user, ReqUpdateFolder requestBody){
-    Folder folder = folderRepository.getOne(requestBody.getId());
-    folder.setName(requestBody.getName());
-    folder.setColor(requestBody.getColor());
+    Folder folder = folderRepository.findById(requestBody.getId()).orElseThrow(() -> new NotFoundException("Not found folder"));
 
-    folderRepository.save(folder);
+    if (user.getId().equals(folder.getUser().getId())) {
+      folder.setName(requestBody.getName());
+      folder.setColor(requestBody.getColor());
+
+      folderRepository.save(folder);
+    } else throw new BadRequestException("Check user or folder id");
   }
 
   /* 폴더 삭제 */
   public void deleteFolder(String phoneUuid, Long folderId){
-    User user = userRepository.findByPhoneUuid(phoneUuid);
-    Folder folder = folderRepository.getOne(folderId);
-    folderRepository.delete(folder);
+    User user = userRepository.findByPhoneUuid(phoneUuid).orElseThrow(() -> new NotFoundException("Not found user"));
+    Folder folder = folderRepository.findById(folderId).orElseThrow(() -> new NotFoundException("Not found folder"));
+
+    if (folder.getUser().getId().equals(user.getId()))
+      folderRepository.delete(folder);
+    else throw new BadRequestException("Check user or folder id");
   }
 
   public ResShowFolder getFolders(String phoneUuid, Long id, Long parentId){
-    User user = userRepository.findByPhoneUuid(phoneUuid);
+    User user = userRepository.findByPhoneUuid(phoneUuid).orElseThrow(() -> new NotFoundException("Not found user"));;
     Optional<Folder> currentFolder = folderRepository.findById(id);
     ResShowFolder resShowFolder = new ResShowFolder();
 
@@ -132,7 +139,8 @@ public class FolderService {
   }
 
   public List<ResFoldersAll> getFoldersAll(String phoneUuid){
-    List<Folder> folders = folderRepository.findAll();
+    User user = userRepository.findByPhoneUuid(phoneUuid).orElseThrow(() -> new NotFoundException("Not found user"));
+    List<Folder> folders = folderRepository.findAllByUser(user);
     List<ResFoldersAll> resFoldersAllList = new ArrayList<>();
     Folder parentFolder = new Folder();
 

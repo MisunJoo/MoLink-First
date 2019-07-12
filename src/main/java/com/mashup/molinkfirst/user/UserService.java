@@ -1,5 +1,7 @@
 package com.mashup.molinkfirst.user;
 
+import com.mashup.molinkfirst.exception.NotFoundException;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,7 +22,9 @@ public class UserService {
   }
 
   public User findUser(String phoneUuid){
-    User user = userRepository.findByPhoneUuid(phoneUuid);
-    return userRepository.getOne(user.getId());
+    Optional<User> user = userRepository.findByPhoneUuid(phoneUuid);
+    if (!user.isPresent()) throw new NotFoundException("Cannot find User!");
+
+    return userRepository.findById(user.get().getId()).orElseThrow(() -> new NotFoundException("Cannot find User!"));
   }
 }

@@ -13,6 +13,7 @@ import com.mashup.molinkfirst.model.ApiResponseModel;
 import com.mashup.molinkfirst.user.User;
 import com.mashup.molinkfirst.user.UserService;
 import java.util.List;
+import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
@@ -47,9 +48,6 @@ public class FolderController {
     ApiResponseModel<List<ResCategoryFolder>> response = new ApiResponseModel<>();
 
     User user = userService.createUser(phoneUuid);
-    if (user == null) {
-      throw new NotFoundException("Cannot find User");
-    }
 
     if (bindingResult.hasErrors()) throw new BadRequestException("Check RequestBody");
     if (requestBody.getCategory_name().size() == 0) throw new BadRequestException("Select Categories");
@@ -65,10 +63,17 @@ public class FolderController {
   @PostMapping("/folders")
   public ApiResponseModel<ResCreateFolder> createFolders(
       @RequestHeader("phone_uuid") String phoneUuid,
-      @RequestBody ReqCreateFolder requestBody){
+      @Valid @RequestBody ReqCreateFolder requestBody,
+      BindingResult bindingResult){
     ApiResponseModel<ResCreateFolder> response = new ApiResponseModel<>();
 
     User user = userService.findUser(phoneUuid);
+
+    if (user == null) {
+      throw new NotFoundException("Cannot find User");
+    }
+
+    if (bindingResult.hasErrors()) throw new BadRequestException("Check RequestBody");
 
     response.setStatusCode(HttpStatus.CREATED.value());
     response.setMessage(HttpStatus.CREATED.toString());

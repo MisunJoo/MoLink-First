@@ -69,7 +69,7 @@ public class LinkService {
   }
 
   public void deleteLink(String phoneUuid, Long id){
-    User user = userRepository.findByPhoneUuid(phoneUuid);
+    User user = userRepository.findByPhoneUuid(phoneUuid).orElseThrow(() -> new NotFoundException("Not found user"));;
     Link link = linkRepository.getOne(id);
 
     linkRepository.delete(link);
