@@ -30,7 +30,7 @@ import lombok.Setter;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Setter
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = "id", callSuper = false)
 @Entity
 public class Folder extends BaseTimeEntity {
 
@@ -52,7 +52,7 @@ public class Folder extends BaseTimeEntity {
   @JsonIgnore
   @OneToMany(cascade = {CascadeType.ALL})
   @JoinColumn(name = "parentId")
-  private List<Folder> children = new ArrayList<Folder>();
+  private final List<Folder> children = new ArrayList<Folder>();
 
   @ManyToOne
   @JoinColumn(name = "userId")
@@ -60,5 +60,5 @@ public class Folder extends BaseTimeEntity {
   private User user;
 
   @OneToMany(mappedBy="folder", cascade = CascadeType.ALL)
-  private List<Link> links = new ArrayList<Link>();
+  private final List<Link> links = new ArrayList<Link>();
 }
