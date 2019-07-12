@@ -31,6 +31,7 @@ public class FolderService {
     this.linkRepository = linkRepository;
   }
 
+  @Transactional
   List<ResCategoryFolder> postCategoriesFolders(User user, ReqCategoryFolder requestBody) {
     int length = requestBody.getCategory_name().size();
     for (int i = 0; i < length; i++){

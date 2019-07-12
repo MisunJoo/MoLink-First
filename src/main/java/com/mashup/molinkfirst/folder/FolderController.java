@@ -1,9 +1,9 @@
 package com.mashup.molinkfirst.folder;
 
 import com.mashup.molinkfirst.exception.BadRequestException;
+import com.mashup.molinkfirst.exception.NotFoundException;
 import com.mashup.molinkfirst.folder.dto.ReqCategoryFolder;
 import com.mashup.molinkfirst.folder.dto.ReqCreateFolder;
-import com.mashup.molinkfirst.folder.dto.ReqShowFolder;
 import com.mashup.molinkfirst.folder.dto.ReqUpdateFolder;
 import com.mashup.molinkfirst.folder.dto.ResCategoryFolder;
 import com.mashup.molinkfirst.folder.dto.ResCreateFolder;
@@ -42,10 +42,17 @@ public class FolderController {
   @PostMapping("/categories/folders")
   public ApiResponseModel<List<ResCategoryFolder>> postCategoriesFolders(
       @RequestHeader("phone_uuid") String phoneUuid,
-      @RequestBody ReqCategoryFolder requestBody){
+      @Valid @RequestBody ReqCategoryFolder requestBody,
+      BindingResult bindingResult){
     ApiResponseModel<List<ResCategoryFolder>> response = new ApiResponseModel<>();
 
     User user = userService.createUser(phoneUuid);
+    if (user == null) {
+      throw new NotFoundException("Cannot find User");
+    }
+
+    if (bindingResult.hasErrors()) throw new BadRequestException("Check RequestBody");
+    if (requestBody.getCategory_name().size() == 0) throw new BadRequestException("Select Categories");
 
     response.setStatusCode(HttpStatus.CREATED.value());
     response.setMessage(HttpStatus.CREATED.toString());

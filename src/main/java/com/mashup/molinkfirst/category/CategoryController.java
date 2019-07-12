@@ -17,6 +17,7 @@ public class CategoryController {
     this.categoryService = categoryService;
   }
 
+  /* 카테고리 목록 뿌려주기 API */
   @GetMapping("")
   public ApiResponseModel<List<ResCategories>> getCategories(){
     ApiResponseModel<List<ResCategories>> response = new ApiResponseModel<>();
