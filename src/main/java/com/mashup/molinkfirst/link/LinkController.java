@@ -1,9 +1,5 @@
 package com.mashup.molinkfirst.link;
 
-import com.mashup.molinkfirst.folder.Folder;
-import com.mashup.molinkfirst.folder.dto.ReqCreateFolder;
-import com.mashup.molinkfirst.folder.dto.ReqUpdateFolder;
-import com.mashup.molinkfirst.folder.dto.ResCreateFolder;
 import com.mashup.molinkfirst.link.dto.ReqCreateLink;
 import com.mashup.molinkfirst.link.dto.ReqUpdateLink;
 import com.mashup.molinkfirst.link.dto.ResCreateLink;

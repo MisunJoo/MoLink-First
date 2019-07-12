@@ -4,7 +4,6 @@ import com.mashup.molinkfirst.exception.BadRequestException;
 import com.mashup.molinkfirst.exception.NotFoundException;
 import com.mashup.molinkfirst.folder.dto.ReqCategoryFolder;
 import com.mashup.molinkfirst.folder.dto.ReqCreateFolder;
-import com.mashup.molinkfirst.folder.dto.ReqShowFolder;
 import com.mashup.molinkfirst.folder.dto.ReqUpdateFolder;
 import com.mashup.molinkfirst.folder.dto.ResCategoryFolder;
 import com.mashup.molinkfirst.folder.dto.ResCreateFolder;

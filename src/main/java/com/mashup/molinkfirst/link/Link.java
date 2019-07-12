@@ -1,7 +1,5 @@
 package com.mashup.molinkfirst.link;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.mashup.molinkfirst.entity.BaseTimeEntity;
@@ -9,7 +7,6 @@ import com.mashup.molinkfirst.folder.Folder;
 import com.mashup.molinkfirst.user.User;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
