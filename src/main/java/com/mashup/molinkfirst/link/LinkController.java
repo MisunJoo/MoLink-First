@@ -36,7 +36,7 @@ public class LinkController {
   public ApiResponseModel<ResCreateLink> createLinks(
       @RequestHeader("phone_uuid") String phoneUuid,
       @RequestBody ReqCreateLink requestBody){
-    ApiResponseModel<ResCreateLink> response = new ApiResponseModel<>();
+    ApiResponseModel<ResCreateLink> response = new ApiResponseModel<ResCreateLink>();
 
     User user = userService.findUser(phoneUuid);
 
@@ -53,7 +53,7 @@ public class LinkController {
       @RequestHeader("phone_uuid") String phoneUuid,
       @RequestBody ReqUpdateLink requestBody,
       @PathVariable Long id){
-    ApiResponseModel<ResUpdateLink> response = new ApiResponseModel();
+    ApiResponseModel<ResUpdateLink> response = new ApiResponseModel<ResUpdateLink>();
 
     User user = userService.findUser(phoneUuid);
 

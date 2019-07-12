@@ -20,7 +20,7 @@ public class CategoryController {
   /* 카테고리 목록 뿌려주기 API */
   @GetMapping("")
   public ApiResponseModel<List<ResCategories>> getCategories(){
-    ApiResponseModel<List<ResCategories>> response = new ApiResponseModel<>();
+    ApiResponseModel<List<ResCategories>> response = new ApiResponseModel<List<ResCategories>>();
     response.setStatusCode(HttpStatus.OK.value());
     response.setMessage(HttpStatus.OK.toString());
     response.setData(categoryService.getAllCategories());

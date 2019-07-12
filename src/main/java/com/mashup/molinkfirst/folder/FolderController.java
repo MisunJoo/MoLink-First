@@ -44,7 +44,7 @@ public class FolderController {
       @RequestHeader("phone_uuid") String phoneUuid,
       @Valid @RequestBody ReqCategoryFolder requestBody,
       BindingResult bindingResult){
-    ApiResponseModel<List<ResCategoryFolder>> response = new ApiResponseModel<>();
+    ApiResponseModel<List<ResCategoryFolder>> response = new ApiResponseModel<List<ResCategoryFolder>>();
 
     User user = userService.createUser(phoneUuid);
 
@@ -64,7 +64,7 @@ public class FolderController {
       @RequestHeader("phone_uuid") String phoneUuid,
       @Valid @RequestBody ReqCreateFolder requestBody,
       BindingResult bindingResult){
-    ApiResponseModel<ResCreateFolder> response = new ApiResponseModel<>();
+    ApiResponseModel<ResCreateFolder> response = new ApiResponseModel<ResCreateFolder>();
 
     User user = userService.findUser(phoneUuid);
 
@@ -120,7 +120,7 @@ public class FolderController {
       @RequestParam(value = "id") Long id,
       @RequestParam(value = "parent_id", required = false) Long parentId){
 
-    ApiResponseModel<ResShowFolder> response = new ApiResponseModel<>();
+    ApiResponseModel<ResShowFolder> response = new ApiResponseModel<ResShowFolder>();
     response.setStatusCode(HttpStatus.OK.value());
     response.setMessage(HttpStatus.OK.toString());
     ResShowFolder res = folderService.getFolders(phoneUuid, id, parentId);
@@ -133,7 +133,7 @@ public class FolderController {
   @GetMapping("/folders/all")
   public ApiResponseModel<List<ResFoldersAll>> getFoldersAll(
       @RequestHeader("phone_uuid") String phoneUuid){
-    ApiResponseModel<List<ResFoldersAll>> response = new ApiResponseModel<>();
+    ApiResponseModel<List<ResFoldersAll>> response = new ApiResponseModel<List<ResFoldersAll>>();
 
     response.setStatusCode(HttpStatus.OK.value());
     response.setMessage(HttpStatus.OK.toString());
