@@ -5,6 +5,9 @@ build/
 !**/src/main/**
 !**/src/test/**
 
+src/main/resources/application-dev.properties
+src/main/resources/application-rds.properties
+
 ### STS ###
 .apt_generated
 .classpath
